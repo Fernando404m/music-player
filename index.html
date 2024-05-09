@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+    <title>Music-player</title>
+</head>
+<body>
+    <header><h1>Music-player</h1><button id="menuburg" class="material-symbols-outlined">menu</button></header> <!-- menu -->
+    <main>
+        <div id="container-img-atual"><img id="img-atual"></div> <!-- img / titulo -->
+        <div id="controles">
+            <button class="material-symbols-outlined" onclick="skip('anterior')">skip_previous</button>
+            <button id="playpause" class="material-symbols-outlined" onclick="playPause()">play_arrow</button>
+            <button class="material-symbols-outlined" onclick="skip('proxima')">skip_next</button>
+            <button id="ordem" class="material-symbols-outlined" onclick="ordem()">shuffle</button> <!-- repeat -->
+        </div> <!-- controles -->
+        <div id="container-musicas"></div> <!-- lista de musicas -->
+    </main>
+</body>
+</html>
