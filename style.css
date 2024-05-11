@@ -46,6 +46,13 @@ body {
     margin: 10px auto;
     background-color: black;
 }
+#img-atual {
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+}
 #controles {
     text-align: center;
     background-color: var(--corSeg);
