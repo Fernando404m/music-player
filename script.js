@@ -69,7 +69,6 @@ function playPause() {
     }
 }
 
-
 function ordem() {
     document.getElementById("ordem").disabled = true
     function shuffle() {
