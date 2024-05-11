@@ -1,3 +1,5 @@
+/* audio */
+
 const audio = new Audio()
 
 var musicas = [
@@ -87,3 +89,7 @@ function ordem() {
     })
     setTimeout(placeMusic, 200)
 }
+
+
+/* outras funções */
+
