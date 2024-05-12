@@ -43,7 +43,7 @@ var player
 function tryMusic(id) {
     player = new YT.Player('yt_player', {
         height: '0',
-        width: '0x',
+        width: '0',
         videoId: id,
         playerVars: {
             'autoplay': 0,
@@ -51,8 +51,12 @@ function tryMusic(id) {
             'quality': 'small',
             'origin': 'http://192.168.15.7:8080'
         },
+        events: {
+            'onReady': function(event) {
+                event.target.playVideo(); // Chama playVideo quando o player estiver pronto
+            }
+        }
     });
-    player.playVideo()
 }
 
 function placeMusic() {
