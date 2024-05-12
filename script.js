@@ -11,6 +11,50 @@ var musicas = [
     {id: 6, tempo: 204, img: "img/RWBYv2.png", title: "Time to say goodbye", src: "musicas/Time to Say Goodbye.mp3"}
 ]
 
+function getSearch(event) {
+    if (event.key == "Enter") {
+        const API_KEY = 'AIzaSyB3SXkyNg4tuyOkz0zqCWvW8l7_2XiOT3Q';
+        const searchTerm ="music " + document.getElementById("search_bar").value;
+
+        fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet&q=${searchTerm}`)
+            .then(response => response.json())
+            .then(data => {
+                data.items.forEach(item => {
+                    if (item.snippet.title.length > 14) {
+                        var titulo = item.snippet.title.slice(0, 18) + "..."
+                    } else {
+                        var titulo = item.snippet.title
+                    }
+                    
+                    var search_item = {id: item.id.videoId, img: item.snippet.thumbnails.default.url, title: titulo}
+
+                    var search_music = document.createElement("div")
+                    search_music.innerHTML = `<h1>${search_item.title}</h1><button onclick="tryMusic('${search_item.id}')" class="material-symbols-outlined play">play_arrow</button>`
+                    document.getElementById("search_list").appendChild(search_music)
+                });
+            })
+                .catch(error => {
+                    console.error('Ocorreu um erro ao pesquisar vídeos:', error);
+            });
+    }
+}
+
+var player
+function tryMusic(id) {
+    player = new YT.Player('yt_player', {
+        height: '0',
+        width: '0x',
+        videoId: id,
+        playerVars: {
+            'autoplay': 0,
+            'controls': 0,
+            'quality': 'small',
+            'origin': 'http://192.168.15.7:8080'
+        },
+    });
+    player.playVideo()
+}
+
 function placeMusic() {
     musicas.forEach(musica => {
         var newMusic = document.createElement("div")
@@ -108,3 +152,16 @@ function ordem() {
 
 /* outras funções */
 
+function openMenu() {
+    var burg = document.getElementById("menuburg")
+    var menu = document.getElementById("menu")
+    if (burg.style.right == "unset") {
+        menu.style.transform = "unset"
+        burg.style.right = "8px"
+        burg.style.left = "unset"
+    } else {
+        menu.style.transform = "translateX(-322px)"
+        burg.style.right = "unset"
+        burg.style.left = "8px"
+    }
+}
