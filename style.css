@@ -43,6 +43,8 @@ body {
 #container-img-atual {
     height: 60vw;
     width: 90vw;
+    max-height: 320px;
+    max-width: 320px;
     margin: 10px auto;
     background-color: black;
 }
