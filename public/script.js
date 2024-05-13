@@ -136,8 +136,9 @@ function skip(dir) {
         if (atual != null) {
             var musica = musicas[pos + 1]
             audio.src = musica.src
+            audio.id = musica.id
             audio.play()
-            timer(musica.tempo)
+            timer(musica.tempo, musica.id)
             document.getElementById("img-atual").style.backgroundImage = `url(${musica.img})`
         } else {
             atual = musicas[pos]
@@ -147,8 +148,9 @@ function skip(dir) {
         if (atual != null) {
             var musica = musicas[pos - 1]
             audio.src = musica.src
+            audio.id = musica.id
             audio.play()
-            timer(musica.tempo)
+            timer(musica.tempo, musica.id)
             document.getElementById("img-atual").style.backgroundImage = `url(${musica.img})`
         } else {
             atual = musicas[pos]
