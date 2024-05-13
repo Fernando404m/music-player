@@ -50,7 +50,7 @@ function playYtMusic(id) {
             'autoplay': 0,
             'controls': 0,
             'quality': 'small',
-            'origin': 'http://192.168.15.7:8080'
+            'origin': 'https://music-player-0.web.app'
         },
         events: {
             'onReady': function(event) {
