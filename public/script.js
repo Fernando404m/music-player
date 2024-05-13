@@ -97,13 +97,18 @@ window.addEventListener("DOMContentLoaded", () => {
     placeMusic()
 })
 
-function timer(tempo) {
+function timer(tempo, id) {
+    var stoId
     function contagem() {
-        if (tempo > 0) {
+        if (!audio.paused && tempo > 0 && audio.id == id) {
             tempo--
-            setTimeout(contagem, 1000)
-        }else {
+            stoId = setTimeout(contagem, 1000)
+        }else if (audio.paused) {
+            stoId = setTimeout(contagem, 1000)
+        }else if (tempo <= 0) {
             skip("proxima")
+        }else if (audio.id != id) {
+            clearTimeout(stoId)
         }
     }
     contagem()
@@ -115,8 +120,9 @@ function chooseMusic(id) {
         if (musica.id == id) {
             atual = musicas.find(musica => musica.id == id)
             audio.src = musica.src
+            audio.id = id
             audio.play()
-            timer(musica.tempo)
+            timer(musica.tempo, id)
             document.getElementById("img-atual").style.backgroundImage = `url(${musica.img})`
         }
     })
