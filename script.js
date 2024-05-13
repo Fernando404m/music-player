@@ -40,7 +40,7 @@ function getSearch(event) {
 }
 
 var player
-function tryMusic(id) {
+function playYtMusic(id) {
     player = new YT.Player('yt_player', {
         height: '0',
         width: '0',
@@ -53,10 +53,17 @@ function tryMusic(id) {
         },
         events: {
             'onReady': function(event) {
-                event.target.playVideo(); // Chama playVideo quando o player estiver pronto
+                event.target.playVideo()
             }
         }
     });
+}
+
+function tryMusic(id) {
+    if (player) {
+        player.destroy()
+    }
+    playYtMusic(id)
 }
 
 function placeMusic() {
