@@ -11,13 +11,16 @@ var musicas = [
     {id: 6, tempo: 204, img: "img/RWBYv2.png", title: "Time to say goodbye", src: "musicas/Time to Say Goodbye.mp3"}
 ]
 
+var musicas_online = []
+
 function getSearch(event) {
     if (event.key == "Enter") {
         const API_KEY = 'AIzaSyB3SXkyNg4tuyOkz0zqCWvW8l7_2XiOT3Q';
         const searchTerm ="music " + document.getElementById("search_bar").value;
         document.getElementById("search_list").innerHTML = ""
+        musicas_online = []
 
-        fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet&q=${searchTerm}`)
+        fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet&q=${searchTerm}&maxResults=8&type=video`)
             .then(response => response.json())
             .then(data => {
                 data.items.forEach(item => {
@@ -27,10 +30,11 @@ function getSearch(event) {
                         var titulo = item.snippet.title
                     }
                     
-                    var search_item = {id: item.id.videoId, img: item.snippet.thumbnails.default.url, title: titulo}
-
+                    var search_item = {id: item.id.videoId, img: item.snippet.thumbnails.default.url, imgHigh: item.snippet.thumbnails.high.url, title: titulo}
+                    musicas_online.push(search_item)
+                    
                     var search_music = document.createElement("div")
-                    search_music.innerHTML = `<h1>${search_item.title}</h1><button onclick="tryMusic('${search_item.id}')" class="material-symbols-outlined play">play_arrow</button>`
+                    search_music.innerHTML = `<img src="${search_item.img}"><h1>${search_item.title}</h1><button onclick="tryMusic('${search_item.id}')" class="material-symbols-outlined play">play_arrow</button>`
                     document.getElementById("search_list").appendChild(search_music)
                 });
             })
@@ -67,6 +71,11 @@ function tryMusic(id) {
     if (player) {
         player.destroy()
     }
+    musicas_online.forEach(musica => {
+        if (musica.id == id) {
+            document.getElementById("img-atual").style.backgroundImage = `url("${musica.imgHigh}")`
+        }
+    })
     playYtMusic(id)
 }
 
