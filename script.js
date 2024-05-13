@@ -15,6 +15,7 @@ function getSearch(event) {
     if (event.key == "Enter") {
         const API_KEY = 'AIzaSyB3SXkyNg4tuyOkz0zqCWvW8l7_2XiOT3Q';
         const searchTerm ="music " + document.getElementById("search_bar").value;
+        document.getElementById("search_list").innerHTML = ""
 
         fetch(`https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet&q=${searchTerm}`)
             .then(response => response.json())
