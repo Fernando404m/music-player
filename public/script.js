@@ -50,7 +50,7 @@ function playYtMusic(id) {
             'autoplay': 0,
             'controls': 0,
             'quality': 'small',
-            'origin': 'https://music-player-0.web.app'
+            'origin': 'https://music-player-0.web.app' //http://192.168.15.7:8080 & https://music-player-0.web.app
         },
         events: {
             'onReady': function(event) {
@@ -61,11 +61,20 @@ function playYtMusic(id) {
 }
 
 function tryMusic(id) {
+    if (audio) {
+        audio.pause()
+    }
     if (player) {
         player.destroy()
     }
     playYtMusic(id)
 }
+
+audio.addEventListener("play", () => {
+    if (player) {
+        player.destroy()
+    }
+})
 
 function placeMusic() {
     musicas.forEach(musica => {
