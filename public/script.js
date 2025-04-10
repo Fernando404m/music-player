@@ -71,7 +71,7 @@ function tryMusic(id) {
     }
     if (player) {
         player.destroy()
-        player = null
+        player = null // a variavel ainda mantinha um valor mesmo apos o destroy
     }
     musicas_online.forEach(musica => {
         if (musica.id == id) {
