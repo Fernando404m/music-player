@@ -62,6 +62,7 @@ function playYtMusic(id) {
             }
         }
     });
+    document.getElementById("playpause").innerText = "pause"
 }
 
 function tryMusic(id) {
@@ -70,6 +71,7 @@ function tryMusic(id) {
     }
     if (player) {
         player.destroy()
+        player = null
     }
     musicas_online.forEach(musica => {
         if (musica.id == id) {
@@ -82,6 +84,7 @@ function tryMusic(id) {
 audio.addEventListener("play", () => {
     if (player) {
         player.destroy()
+        player = null
     }
 })
 
@@ -116,6 +119,12 @@ function timer(tempo, id) {
 
 var atual
 function chooseMusic(id) {
+    
+    if (player) {
+        player.destroy()
+        player = null
+    }
+
     musicas.forEach(musica => {
         if (musica.id == id) {
             atual = musicas.find(musica => musica.id == id)
@@ -159,12 +168,25 @@ function skip(dir) {
 }
 
 function playPause() {
-    if (atual && !audio.paused) {
-        audio.pause()
-        document.getElementById("playpause").innerText = "play_arrow"
-    } else if (atual && audio.paused) {
-        audio.play()
-        document.getElementById("playpause").innerText = "pause"
+
+    let playBtn = document.getElementById("playpause")
+
+    if (player) {
+        if (player.getPlayerState() == 1) {
+            player.pauseVideo()
+            playBtn.innerText = "play_arrow"
+        } else if (player.getPlayerState() == 2) {
+            player.playVideo()
+            playBtn.innerText = "pause"
+        }
+    } else {
+        if (atual && !audio.paused) {
+            audio.pause()
+            playBtn.innerText = "play_arrow"
+        } else if (atual && audio.paused) {
+            audio.play()
+            playBtn.innerText = "pause"
+        }
     }
 }
 
